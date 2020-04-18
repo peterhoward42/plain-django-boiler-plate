@@ -6,6 +6,7 @@ from django.db import models
 
 from django.db.models import SET_NULL, CASCADE
 
+
 # Heading means first 4 digits of code.
 _heading_regex = re.compile('^[0-9]{3}$')
 _heading_validator = RegexValidator(_heading_regex, 'invalid heading')
@@ -15,6 +16,13 @@ _remaining_digits_regex = re.compile('^[0-9]{1,9}$')
 _remaining_digits_validator = RegexValidator(_remaining_digits_regex, 'invalid digits 5,6,7...')
 
 _positive_validator = MinValueValidator(0, 'Negative value not allowed')
+
+
+class Units(Enum):
+    G = 'g'
+    KG = 'Kg'
+    TONNE = 'Tonne'
+    UNSPECIFIED = 'Unspecified'
 
 
 class LastUpdated(models.Model):
@@ -27,14 +35,6 @@ class LastUpdated(models.Model):
         validators=[_heading_validator],
     )
     when = models.DateTimeField()
-
-
-class Units(Enum):
-    G = 'g'
-    KG = 'Kg'
-    TONNE = 'Tonne'
-    UNSPECIFIED = 'Unspecified'
-
 
 class Duty(models.Model):
     """

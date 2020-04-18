@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import LastUpdated, Duty, Product
+
+admin.site.register(LastUpdated)
+admin.site.register(Duty)
+admin.site.register(Product)
