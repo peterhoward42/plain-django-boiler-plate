@@ -12,5 +12,13 @@ pip install -r requirements.txt
 
 cd ./dit
 
-python manage.py makemigrations
+python manage.py makemigrations tariffs
+python manage.py migrate
+
+python manage.py runserver
+```
+
+Browse to:
+```
+http://127.0.0.1:8000/tariffs
 ```
