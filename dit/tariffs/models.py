@@ -8,11 +8,11 @@ from django.db.models import SET_NULL, CASCADE
 
 
 # Heading means first 4 digits of code.
-_heading_regex = re.compile('^[0-9]{3}$')
+_heading_regex = re.compile('^[0-9]{4}$')
 _heading_validator = RegexValidator(_heading_regex, 'invalid heading')
 
 # Digits 5,6,7...
-_remaining_digits_regex = re.compile('^[0-9]{1,9}$')
+_remaining_digits_regex = re.compile('^[0-9]{1,10}$')
 _remaining_digits_validator = RegexValidator(_remaining_digits_regex, 'invalid digits 5,6,7...')
 
 _positive_validator = MinValueValidator(0, 'Negative value not allowed')
@@ -70,11 +70,12 @@ class Product(models.Model):
         validators=[_remaining_digits_validator],
     )
     description = models.CharField(max_length=200, blank=True)
-    parent = models.ForeignKey('Product', null=True, on_delete=SET_NULL)
+    parent = models.ForeignKey('Product', blank=True, null=True, on_delete=SET_NULL)
     vat = models.DecimalField(
         max_digits=4,
         decimal_places=2,
         blank=True,
+        null=True,
         validators=[_positive_validator],
     )
     # The duty details as fetched from a gov.uk source.
@@ -82,13 +83,16 @@ class Product(models.Model):
         Duty,
         related_name='product_as_gov',
         on_delete=CASCADE,
-        blank=True)
+        blank=True,
+        null=True,
+    )
     # The duty experimentally overridden to explore revenue implications.
     overridden_duty = models.OneToOneField(
         Duty,
         related_name='product_as_override',
         on_delete=CASCADE,
-        blank=True)
-
-
+        blank=True,
+        null=True,
+    )
+    
 
