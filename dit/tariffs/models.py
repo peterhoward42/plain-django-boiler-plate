@@ -94,5 +94,5 @@ class Product(models.Model):
         blank=True,
         null=True,
     )
-    
+
 
