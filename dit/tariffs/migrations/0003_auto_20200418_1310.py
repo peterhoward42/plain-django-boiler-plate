@@ -7,18 +7,30 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tariffs', '0002_auto_20200418_1305'),
+        ("tariffs", "0002_auto_20200418_1305"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='product',
-            name='govuk_duty',
-            field=models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='product_as_gov', to='tariffs.Duty'),
+            model_name="product",
+            name="govuk_duty",
+            field=models.OneToOneField(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="product_as_gov",
+                to="tariffs.Duty",
+            ),
         ),
         migrations.AlterField(
-            model_name='product',
-            name='overridden_duty',
-            field=models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='product_as_override', to='tariffs.Duty'),
+            model_name="product",
+            name="overridden_duty",
+            field=models.OneToOneField(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="product_as_override",
+                to="tariffs.Duty",
+            ),
         ),
     ]

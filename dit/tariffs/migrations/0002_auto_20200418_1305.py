@@ -9,33 +9,71 @@ import re
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tariffs', '0001_initial'),
+        ("tariffs", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='lastupdated',
-            name='heading',
-            field=models.CharField(max_length=4, primary_key=True, serialize=False, validators=[django.core.validators.RegexValidator(re.compile('^[0-9]{4}$'), 'invalid heading')]),
+            model_name="lastupdated",
+            name="heading",
+            field=models.CharField(
+                max_length=4,
+                primary_key=True,
+                serialize=False,
+                validators=[
+                    django.core.validators.RegexValidator(
+                        re.compile("^[0-9]{4}$"), "invalid heading"
+                    )
+                ],
+            ),
         ),
         migrations.AlterField(
-            model_name='product',
-            name='heading_digits',
-            field=models.CharField(max_length=4, validators=[django.core.validators.RegexValidator(re.compile('^[0-9]{4}$'), 'invalid heading')]),
+            model_name="product",
+            name="heading_digits",
+            field=models.CharField(
+                max_length=4,
+                validators=[
+                    django.core.validators.RegexValidator(
+                        re.compile("^[0-9]{4}$"), "invalid heading"
+                    )
+                ],
+            ),
         ),
         migrations.AlterField(
-            model_name='product',
-            name='parent',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='tariffs.Product'),
+            model_name="product",
+            name="parent",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="tariffs.Product",
+            ),
         ),
         migrations.AlterField(
-            model_name='product',
-            name='remaining_digits',
-            field=models.CharField(max_length=10, validators=[django.core.validators.RegexValidator(re.compile('^[0-9]{1,10}$'), 'invalid digits 5,6,7...')]),
+            model_name="product",
+            name="remaining_digits",
+            field=models.CharField(
+                max_length=10,
+                validators=[
+                    django.core.validators.RegexValidator(
+                        re.compile("^[0-9]{1,10}$"), "invalid digits 5,6,7..."
+                    )
+                ],
+            ),
         ),
         migrations.AlterField(
-            model_name='product',
-            name='vat',
-            field=models.DecimalField(blank=True, decimal_places=2, max_digits=4, null=True, validators=[django.core.validators.MinValueValidator(0, 'Negative value not allowed')]),
+            model_name="product",
+            name="vat",
+            field=models.DecimalField(
+                blank=True,
+                decimal_places=2,
+                max_digits=4,
+                null=True,
+                validators=[
+                    django.core.validators.MinValueValidator(
+                        0, "Negative value not allowed"
+                    )
+                ],
+            ),
         ),
     ]

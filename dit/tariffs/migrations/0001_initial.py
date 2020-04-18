@@ -11,37 +11,146 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Duty',
+            name="Duty",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('base_rate', models.DecimalField(blank=True, decimal_places=2, max_digits=4, validators=[django.core.validators.MinValueValidator(0, 'Negative value not allowed')])),
-                ('volume_rate', models.DecimalField(blank=True, decimal_places=2, max_digits=4)),
-                ('volume_units', models.CharField(choices=[('g', 'G'), ('Kg', 'KG'), ('Tonne', 'TONNE'), ('Unspecified', 'UNSPECIFIED')], default=tariffs.models.Units['UNSPECIFIED'], max_length=99)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "base_rate",
+                    models.DecimalField(
+                        blank=True,
+                        decimal_places=2,
+                        max_digits=4,
+                        validators=[
+                            django.core.validators.MinValueValidator(
+                                0, "Negative value not allowed"
+                            )
+                        ],
+                    ),
+                ),
+                (
+                    "volume_rate",
+                    models.DecimalField(blank=True, decimal_places=2, max_digits=4),
+                ),
+                (
+                    "volume_units",
+                    models.CharField(
+                        choices=[
+                            ("g", "G"),
+                            ("Kg", "KG"),
+                            ("Tonne", "TONNE"),
+                            ("Unspecified", "UNSPECIFIED"),
+                        ],
+                        default=tariffs.models.Units["UNSPECIFIED"],
+                        max_length=99,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='LastUpdated',
+            name="LastUpdated",
             fields=[
-                ('heading', models.CharField(max_length=4, primary_key=True, serialize=False, validators=[django.core.validators.RegexValidator(re.compile('^[0-9]{3}$'), 'invalid heading')])),
-                ('when', models.DateTimeField()),
+                (
+                    "heading",
+                    models.CharField(
+                        max_length=4,
+                        primary_key=True,
+                        serialize=False,
+                        validators=[
+                            django.core.validators.RegexValidator(
+                                re.compile("^[0-9]{3}$"), "invalid heading"
+                            )
+                        ],
+                    ),
+                ),
+                ("when", models.DateTimeField()),
             ],
         ),
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('heading_digits', models.CharField(max_length=4, validators=[django.core.validators.RegexValidator(re.compile('^[0-9]{3}$'), 'invalid heading')])),
-                ('remaining_digits', models.CharField(max_length=10, validators=[django.core.validators.RegexValidator(re.compile('^[0-9]{1,9}$'), 'invalid digits 5,6,7...')])),
-                ('description', models.CharField(blank=True, max_length=200)),
-                ('vat', models.DecimalField(blank=True, decimal_places=2, max_digits=4, validators=[django.core.validators.MinValueValidator(0, 'Negative value not allowed')])),
-                ('govuk_duty', models.OneToOneField(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='product_as_gov', to='tariffs.Duty')),
-                ('overridden_duty', models.OneToOneField(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='product_as_override', to='tariffs.Duty')),
-                ('parent', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='tariffs.Product')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "heading_digits",
+                    models.CharField(
+                        max_length=4,
+                        validators=[
+                            django.core.validators.RegexValidator(
+                                re.compile("^[0-9]{3}$"), "invalid heading"
+                            )
+                        ],
+                    ),
+                ),
+                (
+                    "remaining_digits",
+                    models.CharField(
+                        max_length=10,
+                        validators=[
+                            django.core.validators.RegexValidator(
+                                re.compile("^[0-9]{1,9}$"), "invalid digits 5,6,7..."
+                            )
+                        ],
+                    ),
+                ),
+                ("description", models.CharField(blank=True, max_length=200)),
+                (
+                    "vat",
+                    models.DecimalField(
+                        blank=True,
+                        decimal_places=2,
+                        max_digits=4,
+                        validators=[
+                            django.core.validators.MinValueValidator(
+                                0, "Negative value not allowed"
+                            )
+                        ],
+                    ),
+                ),
+                (
+                    "govuk_duty",
+                    models.OneToOneField(
+                        blank=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="product_as_gov",
+                        to="tariffs.Duty",
+                    ),
+                ),
+                (
+                    "overridden_duty",
+                    models.OneToOneField(
+                        blank=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="product_as_override",
+                        to="tariffs.Duty",
+                    ),
+                ),
+                (
+                    "parent",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="tariffs.Product",
+                    ),
+                ),
             ],
         ),
     ]
