@@ -1,22 +1,9 @@
+{% for row in rows %}
 
 <div class="row">
-    <div class="col-3 offset-0">
-        Onions and shallots
-    </div>
-    <div class="col-4">
-        Vat and Duty
-    </div>
-    <div class="col-1">
-        Revenue
-    </div>
-    <div class="col">
-        Commodity Code
-    </div>
-</div>
-<div class="row">
-    <div class="col-3">
-        <div class="col offset-1">
-            Onions
+    <div class="col-3"> {# allows for 3 levels, is this sufficient? #}
+        <div class="col offset-{{row.indent}}">
+            {{row.product_name}}
         </div>
     </div>
     <div class="col-4">
@@ -29,3 +16,4 @@
         Commodity Code
     </div>
 </div>
+{% endfor %}

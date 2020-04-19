@@ -9,6 +9,5 @@ def index(request, heading):
 
     view_model = ViewModel(heading)
 
-    context = {'heading': view_model.heading}
     template = loader.get_template('tariffs/landingpage.html')
-    return HttpResponse(template.render(context, request))
+    return HttpResponse(template.render(view_model.data, request))
