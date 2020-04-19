@@ -8,8 +8,8 @@ from django.db.models import SET_NULL, CASCADE
 
 
 # Heading means first 4 digits of code.
-_heading_regex = re.compile("^[0-9]{4}$")
-heading_validator = RegexValidator(_heading_regex, "invalid heading")
+heading_regex = re.compile("^[0-9]{4}$")
+heading_validator = RegexValidator(heading_regex, "invalid heading")
 
 # Digits 5,6,7...
 _remaining_digits_regex = re.compile("^[0-9]{1,10}$")
