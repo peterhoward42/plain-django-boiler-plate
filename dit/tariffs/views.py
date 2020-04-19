@@ -1,8 +1,14 @@
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.template import loader
 
 from .view_model import ViewModel
+from .models import heading_validator
 
 
 def index(request, heading):
+
     view_model = ViewModel(heading)
-    return render(request, "tariffs/landingpage.html", view_model.data)
+
+    context = {'heading': view_model.heading}
+    template = loader.get_template('tariffs/landingpage.html')
+    return HttpResponse(template.render(context, request))

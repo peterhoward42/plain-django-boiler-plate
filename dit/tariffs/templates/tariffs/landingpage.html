@@ -2,35 +2,7 @@
 
 {% block main %}
 
-<div class="row">
-    <div class="col-3 offset-0">
-        Onions and shallots
-    </div>
-    <div class="col-4">
-        Vat and Duty
-    </div>
-    <div class="col-1">
-        Revenue
-    </div>
-    <div class="col">
-        Commodity Code
-    </div>
-</div>
-<div class="row">
-    <div class="col-3">
-        <div class="col offset-1">
-            Onions
-        </div>
-    </div>
-    <div class="col-4">
-        Vat and Duty
-    </div>
-    <div class="col-1">
-        Revenue
-    </div>
-    <div class="col">
-        Commodity Code
-    </div>
-</div>
+{% include "./components/chapter_number_title_block.html" with heading=heading only %}
+{% include "./components/product_table.html" %}
 
 {% endblock %}

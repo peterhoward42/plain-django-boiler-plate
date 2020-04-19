@@ -9,7 +9,7 @@ from django.db.models import SET_NULL, CASCADE
 
 # Heading means first 4 digits of code.
 _heading_regex = re.compile("^[0-9]{4}$")
-_heading_validator = RegexValidator(_heading_regex, "invalid heading")
+heading_validator = RegexValidator(_heading_regex, "invalid heading")
 
 # Digits 5,6,7...
 _remaining_digits_regex = re.compile("^[0-9]{1,10}$")
@@ -33,7 +33,7 @@ class LastUpdated(models.Model):
     """
 
     heading = models.CharField(
-        max_length=4, primary_key=True, validators=[_heading_validator],
+        max_length=4, primary_key=True, validators=[heading_validator],
     )
     when = models.DateTimeField()
 
@@ -61,7 +61,7 @@ class Product(models.Model):
     The core model - one HS Code and its tariffs etc.
     """
 
-    heading_digits = models.CharField(max_length=4, validators=[_heading_validator],)
+    heading_digits = models.CharField(max_length=4, validators=[heading_validator],)
     remaining_digits = models.CharField(
         max_length=10, validators=[_remaining_digits_validator],
     )
