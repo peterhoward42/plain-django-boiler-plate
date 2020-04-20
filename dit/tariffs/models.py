@@ -3,9 +3,6 @@ import re
 from django.core.validators import RegexValidator, MinValueValidator
 from django.db import models
 
-from django.db.models import SET_NULL
-
-
 # Heading means first 4 digits of code.
 heading_regex = re.compile("^[0-9]{4}$")
 heading_validator = RegexValidator(heading_regex, "invalid heading")
@@ -31,7 +28,7 @@ class Commodity(models.Model):
     remaining_digits = models.CharField(
         max_length=10, validators=[_remaining_digits_validator],
     )
-    belongs_to = models.ForeignKey(Heading, null=True, on_delete=SET_NULL)
+    belongs_to = models.ForeignKey(Heading, null=True, on_delete=models.CASCADE)
     description = models.CharField(max_length=200, blank=True)
     is_leaf = models.BooleanField(default=False)
     indent = models.IntegerField(default=0)
