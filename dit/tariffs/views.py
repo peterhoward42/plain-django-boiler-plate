@@ -9,7 +9,8 @@ from .view_model import ViewModel
 
 logger = logging.getLogger(__name__)
 
-def index(request, heading):
+
+def index(request, heading, reload=''):
 
     # Make sure request provides a 4 digit heading.
     if heading_regex.search(heading) is None:
@@ -17,8 +18,8 @@ def index(request, heading):
             f"The requested heading must be 4 digits: ({heading_digits})"
         )
 
-    if True or _heading_unknown_to_database(heading):
-        logger.error(f'Heading unknown: <{heading}, so fetching it now from GovUK API')
+    if reload or _heading_unknown_to_database(heading):
+        logger.error(f'Data for <{heading}> is being reloaded now from GovUK API')
         heading_loader = GovUKLoader(heading=heading)
         heading_loader.load_heading_from_govuk_api_call()
 
