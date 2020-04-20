@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from .models import LastUpdated, Duty, Product
+from .models import Heading, Commodity
 
-admin.site.register(LastUpdated)
-admin.site.register(Duty)
-admin.site.register(Product)
+admin.site.register(Heading)
+admin.site.register(Commodity)
