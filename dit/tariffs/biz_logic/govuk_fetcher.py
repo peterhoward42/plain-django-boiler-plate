@@ -1,5 +1,4 @@
 import requests
-from requests import HTTPError
 
 URL_ROOT = f"https://www.trade-tariff.service.gov.uk/api/v2"
 

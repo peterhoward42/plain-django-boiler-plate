@@ -101,7 +101,7 @@ class ViewModel:
     @staticmethod
     def _make_one_real_row(commodity: Commodity) -> ProductRow:
         return ProductRow(
-            name='forget name',
+            name=commodity.description,
             indent=str(commodity.indent),
             vat=commodity.vat,
             duty=commodity.duty,
