@@ -1,12 +1,13 @@
 {% for row in rows %}
 
-<div class="row small" >
-    <div class="col-3"> {# Reserve 3/12 of the row for the product name #}
+<div class="row small {{row.emphasis}}">
+    <div class="col-5"> {# Reserve 5/12 of the row for the product name #}
         {# In here, 'offset-2' means 2/12 of the space allocated to the product name#}
         <div class="col offset-{{row.indent}}">
             {{row.product_name}}
         </div>
     </div>
+
     <div class="col-1">
         {{row.vat}}
     </div>
@@ -22,13 +23,12 @@
     <div class="col-1">
         {{row.volume}}
     </div>
-    <div class="col"> {# Let the commodity code take the rest #}
+    <div class="col-2"> {# Reserve 2/12 of the row for the code #}
         {{row.code}}
     </div>
-
 </div>
 
-<div class="row" >
+<div class="row">
     <div class="col-12">
         <HR/>
     </div>

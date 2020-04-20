@@ -12,6 +12,7 @@ class ProductRow:
 
     def __init__(
         self,
+        emphasis: str,
         name: str,
         indent: int,
         vat: str,
@@ -21,6 +22,7 @@ class ProductRow:
         volume: str,
         code: str,
     ):
+        self.emphasis = emphasis
         self.product_name = name
         self.indent = indent
         self.vat = vat
@@ -59,6 +61,7 @@ class ViewModel:
     @staticmethod
     def _make_heading_columns_row() -> ProductRow:
         return ProductRow(
+            emphasis="font-weight-bold",
             name="Name",
             indent="0",
             vat="VAT",
@@ -101,12 +104,13 @@ class ViewModel:
     @staticmethod
     def _make_one_real_row(commodity: Commodity) -> ProductRow:
         return ProductRow(
+            emphasis='',
             name=commodity.description,
             indent=str(commodity.indent),
             vat=commodity.vat,
             duty=commodity.duty,
             revenue="tbd",
-            price="tbd",
+            price="tbd",    
             volume="tbd",
             code=commodity.remaining_digits,
         )
