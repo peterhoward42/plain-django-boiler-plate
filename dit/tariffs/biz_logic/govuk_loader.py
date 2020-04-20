@@ -20,8 +20,5 @@ class GovUKLoader:
         fetcher = GovUKFetcher(self.heading)
         data_dict = fetcher.fetch()
 
-        print(f'XXXXX pretty follows')
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(data_dict)
-        raise RuntimeError('XXXXX on purpose')
+
 
