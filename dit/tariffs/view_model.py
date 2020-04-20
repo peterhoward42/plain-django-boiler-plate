@@ -2,6 +2,8 @@
 This module contains classes that are capable of expressing the app's
 view-model. I.e. the 'VM' in the MVVM pattern.
 """
+from django.utils import timezone
+
 from .models import Heading, Commodity
 
 
@@ -53,15 +55,27 @@ class ViewModel:
 
         res = {}
         res['heading'] = heading_digits
+        res['minutes_old'] = ViewModel.minutes_old(heading_obj)
         res['rows'] = [ViewModel._make_heading_columns_row()]
         res['rows'].extend(ViewModel._make_all_real_rows(commodities))
         return res
         a = 42
 
     @staticmethod
+    def minutes_old(heading_obj: Heading) -> str:
+        last_updated = heading_obj.last_updated
+        now = timezone.now()
+        delta = now - last_updated
+        minutes = delta.seconds / 60.0
+        minutes = "{:.1f}".format(minutes)
+
+        return minutes  
+
+
+    @staticmethod
     def _make_heading_columns_row() -> ProductRow:
         return ProductRow(
-            emphasis="font-weight-bold",
+            emphasis="font-weight-bold",  # TODO don't let pure view scope creep in here (Bootstrap tag)
             name="Name",
             indent="0",
             vat="VAT",
@@ -110,7 +124,7 @@ class ViewModel:
             vat=commodity.vat,
             duty=commodity.duty,
             revenue="tbd",
-            price="tbd",    
+            price="tbd",
             volume="tbd",
             code=commodity.remaining_digits,
         )

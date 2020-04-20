@@ -23,7 +23,6 @@ def index(request, heading, reload=''):
         heading_loader = GovUKLoader(heading=heading)
         heading_loader.load_heading_from_govuk_api_call()
 
-    # view_model_dict = ViewModel.make_static_example(heading)
     view_model_dict = ViewModel.make_from_heading_data_in_db(heading)
 
     template = loader.get_template("tariffs/landingpage.html")
