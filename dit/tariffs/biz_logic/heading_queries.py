@@ -2,7 +2,6 @@ from ..models import Heading
 
 
 class HeadingQueries:
-
     def __init__(self, heading: str):
         self.heading = heading
 

@@ -21,9 +21,8 @@ _positive_validator = MinValueValidator(0, "Negative value not allowed")
 
 class Heading(models.Model):
     heading_digits = models.CharField(
-        primary_key=True,
-        max_length=4,
-        validators=[heading_validator],)
+        primary_key=True, max_length=4, validators=[heading_validator],
+    )
     description = models.CharField(max_length=200, blank=True)
     last_updated = models.DateTimeField()
 
@@ -34,35 +33,13 @@ class Commodity(models.Model):
     )
     belongs_to = models.ForeignKey(Heading, null=True, on_delete=SET_NULL)
     description = models.CharField(max_length=200, blank=True)
-    indent = models.IntegerField()
+    is_leaf = models.BooleanField(default=False)
+    indent = models.IntegerField(default=0)
 
-    # TODO For MVP - the following numeric fields have no units,
-    # and the duty is a plain number - (no =/-volume element)
-    vat = models.DecimalField(
-        max_digits=4,
-        decimal_places=2,
-        blank=True,
-        null=True,
-        validators=[_positive_validator],
-    )
-    duty = models.DecimalField(
-        max_digits=4,
-        decimal_places=2,
-        blank=True,
-        null=True,
-        validators=[_positive_validator],
-    )
-    price = models.DecimalField(
-        max_digits=6,
-        decimal_places=2,
-        blank=True,
-        null=True,
-        validators=[_positive_validator],
-    )
-    volume = models.DecimalField(
-        max_digits=6,
-        decimal_places=2,
-        blank=True,
-        null=True,
-        validators=[_positive_validator],
-    )
+    # TODO For MVP - the following numeric-like fields should be number types,
+    # and have units - to support calculations.
+    # And have validators!
+    vat = models.CharField(max_length=4, blank=True, null=True,)
+    duty = models.CharField(max_length=20, blank=True, null=True,)
+    price = models.CharField(max_length=9, blank=True, null=True,)
+    volume = models.CharField(max_length=9, blank=True, null=True,)

@@ -10,8 +10,9 @@ def index(request, heading):
     # Make sure request provides a 4 digit heading.
     if heading_regex.search(heading) is None:
         return HttpResponseBadRequest(
-            f'The heading in the URL must be 4 digits: ({heading})')
+            f"The heading in the URL must be 4 digits: ({heading})"
+        )
 
     view_model = make_static_example(heading)
-    template = loader.get_template('tariffs/landingpage.html')
+    template = loader.get_template("tariffs/landingpage.html")
     return HttpResponse(template.render(view_model.data, request))
