@@ -1,8 +1,19 @@
-<div>
+<div class="col-6">
     <h2>
         Heading: {{heading}}
     </h2>
-    <p>
-        This data is {{minutes_old}} minutes old.
-    </p>
+
+    <form action="/tariffs/{{heading}}/reload">
+
+        <div class="input-group mb-3">
+            <div class="form-control">
+                This heading's data is {{minutes_old}} minutes old
+            </div>
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit" value="{{heading}}}}">Refresh</button>
+            </div>
+        </div>
+    </form>
+
+
 </div>

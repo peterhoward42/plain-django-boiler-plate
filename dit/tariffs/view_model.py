@@ -69,7 +69,7 @@ class ViewModel:
         minutes = delta.seconds / 60.0
         minutes = "{:.1f}".format(minutes)
 
-        return minutes  
+        return minutes
 
 
     @staticmethod
