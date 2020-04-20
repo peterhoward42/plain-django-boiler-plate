@@ -60,10 +60,9 @@ class GovUKLoader:
             )
 
             attr = commodity_json["data"]["attributes"]
-
-            commodity.num_indents = attr["number_indents"]
-            commodity.duty = attr[
-                "basic_duty_rate"
-            ]  # this is a string forming an HTML span!
+            indent = attr['number_indents'] - 1  # Incoming indents are 1,2,3... but want 0,1,2...
+            duty = attr['basic_duty_rate']  # this is a string forming an HTML span!
+            commodity.indent = indent
+            commodity.duty = duty
 
         commodity.save()
