@@ -1,6 +1,6 @@
 {% for row in rows %}
 
-<div class="row">
+<div class="row small" >
     <div class="col-3"> {# Reserve 3/12 of the row for the product name #}
         {# In here, 'offset-2' means 2/12 of the space allocated to the product name#}
         <div class="col offset-{{row.indent}}">
@@ -26,6 +26,12 @@
         {{row.code}}
     </div>
 
+</div>
+
+<div class="row" >
+    <div class="col-12">
+        <HR/>
+    </div>
 </div>
 
 {% endfor %}
