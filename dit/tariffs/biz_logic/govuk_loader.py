@@ -23,7 +23,8 @@ class GovUKLoader:
         attributes = data["attributes"]
         desc = attributes["formatted_description"]
 
-        # Build the heading object.
+        # Build a new heading object that will replace the old one, if it
+        # already exists because the heading_digits is the primary key.
         heading = Heading(
             heading_digits=self.heading,
             description=desc,
@@ -31,7 +32,7 @@ class GovUKLoader:
         )
         heading.save()
 
-        # Build and attach the commodity(s) that belong to the heading.
+        # Build (or update), and attach the commodity(s) that belong to the heading.
         self._load_child_commodities(heading, heading_info.commodity_info)
 
     def _load_child_commodities(
@@ -41,16 +42,18 @@ class GovUKLoader:
             self._load_commodity(heading, a_commodity)
 
     def _load_commodity(self, heading: Heading, commodity_meta: CommodityMetaInfo):
-        # First initialise a Commodity based only the meta info that has come
-        # from the heading api call.
 
         desc = commodity_meta.desc
         code = commodity_meta.goods_nomenclature_item_id
 
-        commodity = Commodity(
-            remaining_digits=code[3:], belongs_to=heading, description=desc,
+        # Create (or retrieve) the commodity and set the fields that can be
+        # just from the info provided in commodity_meta. This is all you
+        # are going to get for non-leaf rows.
+        commodity, created = Commodity.objects.update_or_create(
+            remaining_digits=code[3:], belongs_to=heading, description=desc
         )
-        # For leaf commodities, we need more info from the commodity api endpoint.
+
+        # For leaf commodities, we fetch more info from the commodity api endpoint.
         if commodity_meta.is_leaf:
             commodity_json = GovUKCommodityFetcher.fetch_from_api(
                 commodity_meta.goods_nomenclature_item_id
@@ -62,6 +65,5 @@ class GovUKLoader:
             commodity.duty = attr[
                 "basic_duty_rate"
             ]  # this is a string forming an HTML span!
-            a = 42
 
         commodity.save()
