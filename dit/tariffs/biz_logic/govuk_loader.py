@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 
 from ..biz_logic.govuk_fetcher import GovUKHeadingFetcher, GovUKCommodityFetcher
 from ..models import Heading, Commodity
@@ -25,7 +25,9 @@ class GovUKLoader:
 
         # Build the heading object.
         heading = Heading(
-            heading_digits=self.heading, description=desc, last_updated=datetime.now(),
+            heading_digits=self.heading,
+            description=desc,
+            last_updated=timezone.now()
         )
         heading.save()
 

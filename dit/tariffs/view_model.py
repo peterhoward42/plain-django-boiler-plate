@@ -46,8 +46,7 @@ class ViewModel:
 
     @staticmethod
     def make_from_heading_data_in_db(heading_digits: str) -> dict:
-        heading_obj = Heading.objects.filter(heading_digits=heading_digits)
-        commodities = heading_obj.commodity_set
+        heading_obj = Heading.objects.get(heading_digits=heading_digits)
         commodities = Commodity.objects.filter(belongs_to=heading_obj)
 
         res = {}

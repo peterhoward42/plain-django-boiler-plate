@@ -17,13 +17,13 @@ def index(request, heading):
             f"The requested heading must be 4 digits: ({heading_digits})"
         )
 
-    if _heading_unknown_to_database(heading):
-        logger.info(f'Heading unknown: <{heading}, so fetching it now from GovUK API')
+    if True or _heading_unknown_to_database(heading):
+        logger.error(f'Heading unknown: <{heading}, so fetching it now from GovUK API')
         heading_loader = GovUKLoader(heading=heading)
         heading_loader.load_heading_from_govuk_api_call()
 
     # view_model_dict = ViewModel.make_static_example(heading)
-    view_model = ViewModel.make_from_heading_data_in_db(heading)
+    view_model_dict = ViewModel.make_from_heading_data_in_db(heading)
 
     template = loader.get_template("tariffs/landingpage.html")
     return HttpResponse(template.render(view_model_dict, request))
