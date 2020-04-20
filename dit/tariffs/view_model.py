@@ -9,13 +9,12 @@ class ProductRow:
     The view model for one row of the product/tariff table.
     """
 
-    def __init__(self, name: str, indent: int, vat: str, govuk_duty: str, overidden_duty: str,
+    def __init__(self, name: str, indent: int, vat: str, duty: str,
                  revenue: str, price: str, volume: str, code: str):
         self.product_name = name
         self.indent = indent
         self.vat = vat
-        self.govuk_duty = govuk_duty
-        self.overidden_duty = overidden_duty
+        self.duty = duty
         self.revenue = revenue
         self.price = price
         self.volume = volume
@@ -35,10 +34,9 @@ def _make_heading_columns_row() -> ProductRow:
         name='Name',
         indent='0',
         vat='VAT',
-        govuk_duty='Duty (official)',
-        overidden_duty='Duty (override)',
+        duty='Duty',
         revenue='Revenue / Ann',
-        price='Price (EUR)',
+        price='Price',
         volume='Volume',
         code='Commodity Code',
     )
@@ -49,11 +47,10 @@ def _make_static_row(row_index: int) -> ProductRow:
         name=f'product_{row_index}',
         indent=str(row_index % 3),
         vat='15.0',
-        govuk_duty='15%',
-        overidden_duty='9% + 26 EUR / Kg',
-        revenue='4.3M/ann',
-        price='3.16/Kg',
-        volume='3200 tonne/ann',
+        duty='15%',
+        revenue='4.3',
+        price='3.16',
+        volume='3200',
         code='20 07 68 51',
     )
 
@@ -81,11 +78,10 @@ def _make_one_static_row(row_index: int) -> ProductRow:
         name=f'product_{row_index}',
         indent=str(row_index % 3),
         vat='15.0',
-        govuk_duty='15%',
-        overidden_duty='9% + 26 EUR / Kg',
-        revenue='EUR 4.3M/ann',
-        price='EUR 3.16/Kg',
-        volume='3200 tonne/ann',
+        duty='15%',
+        revenue='4.3',
+        price='3.16',
+        volume='3200',
         code='20 07 68 51',
     )
 

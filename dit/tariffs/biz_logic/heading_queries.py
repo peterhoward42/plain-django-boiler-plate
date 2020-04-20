@@ -1,4 +1,4 @@
-from ..models import LastUpdated
+from ..models import Heading
 
 
 class HeadingQueries:
@@ -7,4 +7,4 @@ class HeadingQueries:
         self.heading = heading
 
     def is_in_database(self) -> bool:
-        return LastUpdated.objects.filter(heading=self.heading).exists()
+        return Heading.objects.filter(heading_digits=self.heading).exists()
