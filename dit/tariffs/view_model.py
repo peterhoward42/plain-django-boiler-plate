@@ -117,15 +117,15 @@ class ViewModel:
 
     @staticmethod
     def _make_one_real_row(commodity: Commodity) -> ProductRow:
+        revenue = commodity.calculate_revenue()
         return ProductRow(
             emphasis='',
             name=commodity.description,
             indent=str(commodity.indent),
-            vat=commodity.vat,
-            duty=commodity.duty,
-            revenue="tbd",
-            price="tbd",
-            volume="tbd",
+            vat=commodity.vat or '-',
+            duty=commodity.duty or '-',
+            revenue=revenue or '-',
+            price=commodity.price or '-',
+            volume=commodity.volume or '-',
             code=commodity.remaining_digits,
         )
-

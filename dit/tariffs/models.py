@@ -40,3 +40,21 @@ class Commodity(models.Model):
     duty = models.CharField(max_length=20, blank=True, null=True,)
     price = models.CharField(max_length=9, blank=True, null=True,)
     volume = models.CharField(max_length=9, blank=True, null=True,)
+
+    def calculate_revenue(self):
+        """
+        IFF the volume and price are numbers, then return
+        their product.
+        """
+        if self.price is None:
+            return None
+        if self.volume is None:
+            return None
+        try:
+            price_val = float(self.price)
+            volume_val = float(self.volume)
+        except ValueError:
+            return None
+        mult = price_val * volume_val
+        return str(mult)
+
